@@ -9,7 +9,6 @@ xcode_scheme: TaskRunner-Example
 cache: cocoapods
 podfile: Example/Podfile
 before_install:
-- rvm use system
 - gem install cocoapods -v '1.1.0.rc.2' # Since Travis is not always on latest version
 - pod install --project-directory=Example
 script:
