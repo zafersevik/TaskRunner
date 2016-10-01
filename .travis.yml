@@ -10,8 +10,6 @@ cache: cocoapods
 podfile: Example/Podfile
 before_install:
 - rvm use system
-- rvm install 2.2
-- rvm use 2.2
 - gem install cocoapods -v '1.1.0.rc.2' # Since Travis is not always on latest version
 - pod install --project-directory=Example
 script:
