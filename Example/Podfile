@@ -3,7 +3,7 @@ use_frameworks!
 target 'TaskRunner_Example' do
     pod 'TaskRunner', :path => '../'
 
-    target 'TaskRunner_Tests' do
+    target 'Tests' do
         inherit! :search_paths
 
         pod 'Quick', '~> 0.10'

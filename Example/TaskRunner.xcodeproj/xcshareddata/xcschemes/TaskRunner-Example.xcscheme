@@ -20,20 +20,6 @@
                ReferencedContainer = "container:TaskRunner.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "TaskRunner_Tests.xctest"
-               BlueprintName = "TaskRunner_Tests"
-               ReferencedContainer = "container:TaskRunner.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -46,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "TaskRunner_Tests.xctest"
-               BlueprintName = "TaskRunner_Tests"
+               BlueprintIdentifier = "DADADE981DA0393F00F1AF3B"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
                ReferencedContainer = "container:TaskRunner.xcodeproj">
             </BuildableReference>
          </TestableReference>
