@@ -28,7 +28,8 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/zafersevik/TaskRunner.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/zafersevik'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
+  s.requires_arc = true
 
   s.source_files = 'TaskRunner/Classes/**/*'
   
