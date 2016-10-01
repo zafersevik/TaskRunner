@@ -1,5 +1,3 @@
-// https://github.com/Quick/Quick
-
 import Quick
 import Nimble
 import TaskRunner
@@ -8,17 +6,17 @@ class TableOfContentsSpec: QuickSpec {
     override func spec() {
         describe("these will fail") {
 
-            it("can do maths") {
-                expect(1) == 2
-            }
-
-            it("can read") {
-                expect("number") == "string"
-            }
-
-            it("will eventually fail") {
-                expect("time").toEventually( equal("done") )
-            }
+//            it("can do maths") {
+//                expect(1) == 2
+//            }
+//
+//            it("can read") {
+//                expect("number") == "string"
+//            }
+//
+//            it("will eventually fail") {
+//                expect("time").toEventually( equal("done") )
+//            }
             
             context("these will pass") {
 
@@ -33,12 +31,12 @@ class TableOfContentsSpec: QuickSpec {
                 it("will eventually pass") {
                     var time = "passing"
 
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         time = "done"
                     }
 
                     waitUntil { done in
-                        NSThread.sleepForTimeInterval(0.5)
+                        Thread.sleep(forTimeInterval: 0.5)
                         expect(time) == "done"
 
                         done()

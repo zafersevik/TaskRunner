@@ -1,0 +1,6 @@
+framework module TaskRunner {
+  umbrella header "TaskRunner-umbrella.h"
+
+  export *
+  module * { export * }
+}

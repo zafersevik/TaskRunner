@@ -1,14 +1,12 @@
 use_frameworks!
 
 target 'TaskRunner_Example' do
-  pod 'TaskRunner', :path => '../'
+    pod 'TaskRunner', :path => '../'
 
-  target 'TaskRunner_Tests' do
-    inherit! :search_paths
+    target 'TaskRunner_Tests' do
+        inherit! :search_paths
 
-    pod 'Quick', '~> 0.8'
-  pod 'Nimble', '~> 3.0'
-  pod 'FBSnapshotTestCase'
-  pod 'Nimble-Snapshots'
-  end
+        pod 'Quick', '~> 0.10'
+        pod 'Nimble', '~> 5.0.0'
+    end
 end

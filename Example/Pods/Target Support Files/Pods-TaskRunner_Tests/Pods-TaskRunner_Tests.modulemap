@@ -1,0 +1,6 @@
+framework module Pods_TaskRunner_Tests {
+  umbrella header "Pods-TaskRunner_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

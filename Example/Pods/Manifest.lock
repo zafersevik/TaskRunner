@@ -1,0 +1,22 @@
+PODS:
+  - Nimble (5.0.0)
+  - Quick (0.10.0)
+  - TaskRunner (0.1.0)
+
+DEPENDENCIES:
+  - Nimble (~> 5.0.0)
+  - Quick (~> 0.10)
+  - TaskRunner (from `../`)
+
+EXTERNAL SOURCES:
+  TaskRunner:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Nimble: 56fc9f5020effa2206de22c3dd910f4fb011b92f
+  Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
+  TaskRunner: 0ff6ddd1402b6066d50569b0dcfc0286d7ddf8ef
+
+PODFILE CHECKSUM: 4148333177176002572344b4d07ccbdd25792ae1
+
+COCOAPODS: 1.1.0.rc.2

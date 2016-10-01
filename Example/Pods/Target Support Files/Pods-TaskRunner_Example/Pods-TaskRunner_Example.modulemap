@@ -1,0 +1,6 @@
+framework module Pods_TaskRunner_Example {
+  umbrella header "Pods-TaskRunner_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "TaskRunner",
+  "version": "0.1.0",
+  "summary": "A short description of TaskRunner.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/TaskRunner",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Zafer Sevik": "zafersevik@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/zafersevik/TaskRunner.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "TaskRunner/Classes/**/*"
+}
