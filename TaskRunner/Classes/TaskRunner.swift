@@ -25,12 +25,18 @@
 
 import Foundation
 
+public typealias Task = (@escaping Done) -> Void
+public typealias Done = (Error?) -> Void
+
+let DEFAULT_DURATION_TO_COMPLETE = 10.0
+let TIMEOUT_ERROR: Error = NSError(domain: "TaskRunner",
+                                   code: 1,
+                                   userInfo: [NSLocalizedDescriptionKey: "Task isn't completed in expected time interval"])
+
 public class TaskRunner {
-    
-    private static let durationToComplete = 10.0
-    
+        
     public class func runInParallel(tasks: [Task]?, done: Done?) {
-        runInParallel(durationToComplete: durationToComplete, tasks: tasks, done: done)
+        runInParallel(durationToComplete: DEFAULT_DURATION_TO_COMPLETE, tasks: tasks, done: done)
     }
     
     public class func runInParallel(durationToComplete: Double, tasks: [Task]?, done: Done?) {
@@ -42,10 +48,14 @@ public class TaskRunner {
     }
     
     public class func runInSeries(tasks: [Task]?, done: Done?) {
-        
+        runInSeries(tasks: tasks, done: done)
     }
     
     public class func runInSeries(durationToComplete: Double, tasks: [Task]?, done: Done?) {
-    
+        let seriesTaskRunner = SeriesTaskRunner()
+        seriesTaskRunner.set(durationToComplete:durationToComplete)
+        seriesTaskRunner.set(tasks: tasks)
+        seriesTaskRunner.set(allTasksDone: done)
+        seriesTaskRunner.run()
     }
 }

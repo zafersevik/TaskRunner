@@ -14,6 +14,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		87D8421E8D72DA075932B160 /* Pods_TaskRunner_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B05721AA1AA73A328D134D7 /* Pods_TaskRunner_Example.framework */; };
 		8F9EFCF2B6E14A6A6D124C76 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59168FDD5382FE882A5AAAC8 /* Pods_Tests.framework */; };
+		DA89AF4A1DA10673000A8E6C /* SeriesTaskRunnerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA89AF491DA10673000A8E6C /* SeriesTaskRunnerSpec.swift */; };
 		DADADEA41DA0398600F1AF3B /* ParallelTaskRunnerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADEA31DA0398600F1AF3B /* ParallelTaskRunnerSpec.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		8940AA55BF36C4B0D4B51591 /* Pods_TaskRunner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskRunner_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		909ED90C091411DBA3B11BA2 /* Pods-TaskRunner_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskRunner_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskRunner_Tests/Pods-TaskRunner_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		9B05721AA1AA73A328D134D7 /* Pods_TaskRunner_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskRunner_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA89AF491DA10673000A8E6C /* SeriesTaskRunnerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesTaskRunnerSpec.swift; sourceTree = "<group>"; };
 		DADADE991DA0393F00F1AF3B /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADADE9D1DA0393F00F1AF3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADADEA31DA0398600F1AF3B /* ParallelTaskRunnerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallelTaskRunnerSpec.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				DADADEA31DA0398600F1AF3B /* ParallelTaskRunnerSpec.swift */,
 				DADADE9D1DA0393F00F1AF3B /* Info.plist */,
+				DA89AF491DA10673000A8E6C /* SeriesTaskRunnerSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA89AF4A1DA10673000A8E6C /* SeriesTaskRunnerSpec.swift in Sources */,
 				DADADEA41DA0398600F1AF3B /* ParallelTaskRunnerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +529,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1E4093816BFB18900D3DEFD5 /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -544,6 +549,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 130F98E065DD3908E1C3542E /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;

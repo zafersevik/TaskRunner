@@ -34,34 +34,34 @@ class ParallelTaskRunnerSpec: QuickSpec {
         describe("ParallelTaskRunnerSpec") {
             
             var runner: ParallelTaskRunner!
-            let runnerTimeoutLimitForTest = 1.0
-            let testTimeout = runnerTimeoutLimitForTest + 0.5
+            let runnerDeadlineForTest = 1.0
+            let testTimeout = runnerDeadlineForTest + 0.5
             
-            var isTask0Finished  = false
+            var isTask0Completed  = false
             var isTask0Called = false
-            var isTask1Finished = false
-            var task1Called = false
-            var task2Finished = false
-            var task2Called = false
-            var taskWithErrorCalled = false
+            var isTask1Completed = false
+            var isTask1Called = false
+            var isTask2Completed = false
+            var isTask2Called = false
+            var isTaskWithErrorCalled = false
             
-            let taskWithErrorError: Error = NSError(domain: "",
-                                                    code: -1,
-                                                    userInfo: [NSLocalizedDescriptionKey: "Task Error"])
-            var taskExceedingTimeoutLimitCalled = false
+            let taskError: Error = NSError(domain: "",
+                                           code: -1,
+                                           userInfo: [NSLocalizedDescriptionKey: "Task Error"])
+            var isTaskExceedingDeadlineCalled = false
             
-            var isTask0FinishedValueWhenDoneCalled = false
-            var isTask1FinishedValueWhenDoneCalled = false
-            var task2FinishedValueWhenDoneCalled = false
+            var isTask0CompletedValueWhenDoneCalled = false
+            var isTask1CompletedValueWhenDoneCalled = false
+            var isTask2CompletedValueWhenDoneCalled = false
             var allTasksDoneError:  Error?
-            var allTasksDoneCalled = false
+            var isAllTasksDoneCalled = false
             
             let allTasksDone: Done = {
                 error in
-                isTask0FinishedValueWhenDoneCalled = isTask0Finished
-                isTask1FinishedValueWhenDoneCalled = isTask1Finished
-                task2FinishedValueWhenDoneCalled = task2Finished
-                allTasksDoneCalled = true
+                isTask0CompletedValueWhenDoneCalled = isTask0Completed
+                isTask1CompletedValueWhenDoneCalled = isTask1Completed
+                isTask2CompletedValueWhenDoneCalled = isTask2Completed
+                isAllTasksDoneCalled = true
                 allTasksDoneError = error
             }
             
@@ -76,40 +76,40 @@ class ParallelTaskRunnerSpec: QuickSpec {
                 done in
                 isTask0Called = true
                 runConcurrent(delay: 0.1) {
-                    isTask0Finished = true
+                    isTask0Completed = true
                     done(nil)
                 }
             }
             
             let task1: Task = {
                 done in
-                task1Called = true
+                isTask1Called = true
                 runConcurrent(delay: 0.2) {
-                    isTask1Finished = true
+                    isTask1Completed = true
                     done(nil)
                 }
             }
             
             let task2: Task = {
                 done in
-                task2Called = true
+                isTask2Called = true
                 runConcurrent(delay: 0.3) {
-                    task2Finished = true
+                    isTask2Completed = true
                     done(nil)
                 }
             }
             
             let taskWithError: Task = {
                 done in
-                taskWithErrorCalled = true
+                isTaskWithErrorCalled = true
                 runConcurrent(delay: 0.1) {
-                    done(taskWithErrorError)
+                    done(taskError)
                 }
             }
             
-            let taskExceedingTimeoutLimit: Task = {
+            let taskExceedingDeadline: Task = {
                 done in
-                taskExceedingTimeoutLimitCalled = true
+                isTaskExceedingDeadlineCalled = true
                 runConcurrent(delay: 3.0) {
                     done(nil)
                 }
@@ -122,7 +122,7 @@ class ParallelTaskRunnerSpec: QuickSpec {
             
             beforeEach() {
                 runner = ParallelTaskRunner()
-                runner.set(durationToComplete: runnerTimeoutLimitForTest)
+                runner.set(durationToComplete: runnerDeadlineForTest)
                 runner.set(allTasksDone: allTasksDone)
             }
             
@@ -133,8 +133,8 @@ class ParallelTaskRunnerSpec: QuickSpec {
                     makeTestsWaitUntil(timeout: testTimeout)
                 }
                 
-                it("should call all tasks' done") {
-                    expect(allTasksDoneCalled).to(beTrue())
+                it("should immediately call all tasks' done callback") {
+                    expect(isAllTasksDoneCalled).to(beTrue())
                     expect(allTasksDoneError).to(beNil())
                 }
             }
@@ -147,15 +147,15 @@ class ParallelTaskRunnerSpec: QuickSpec {
                     makeTestsWaitUntil(timeout: testTimeout)
                 }
                 
-                it("should call all tasks' done") {
-                    expect(allTasksDoneCalled).to(beTrue())
+                it("should immediately call all tasks' done callback") {
+                    expect(isAllTasksDoneCalled).to(beTrue())
                     expect(allTasksDoneError).to(beNil())
                 }
             }
             
-            context("when there is one task") {
+            context("when there is only one task") {
                 
-                context("when task is completed in timeout limit") {
+                context("when task is completed before deadline`") {
                     
                     beforeEach() {
                         runner.set(tasks: [task0])
@@ -167,38 +167,40 @@ class ParallelTaskRunnerSpec: QuickSpec {
                         expect(isTask0Called).to(beTrue())
                     }
                     
-                    it("should call all tasks' done") {
-                        expect(allTasksDoneCalled).to(beTrue())
+                    it("should call all tasks' done callback") {
+                        expect(isAllTasksDoneCalled).to(beTrue())
                         expect(allTasksDoneError).to(beNil())
                     }
                     
-                    context("when timeout limit exceeds") {
+                    context("when deadline exceeded") {
+                        
+                        let extraTime = 0.5
                         
                         beforeEach() {
-                            makeTestsWaitUntil(timeout: 0.5)
+                            makeTestsWaitUntil(timeout: extraTime)
                         }
                         
-                        it("should not call all tasks' done again with error") {
+                        it("should not call all tasks' done again with a timeout error") {
                             expect(allTasksDoneError).to(beNil())
                         }
                     }
                 }
                 
-                context("when task takes time more than timeout limit") {
+                context("when task exceeds deadline") {
                     
                     beforeEach() {
-                        runner.set(tasks: [taskExceedingTimeoutLimit])
+                        runner.set(tasks: [taskExceedingDeadline])
                         runner.run()
                         makeTestsWaitUntil(timeout: testTimeout)
                     }
                     
                     it("should run task") {
-                        expect(taskExceedingTimeoutLimitCalled).to(beTrue())
+                        expect(isTaskExceedingDeadlineCalled).to(beTrue())
                     }
                     
-                    it("should call all tasks done with error") {
-                        expect(allTasksDoneCalled).to(beTrue())
-                        expect(allTasksDoneError?.localizedDescription).to(equal("Task timed out"))
+                    it("should call all tasks done callback with error") {
+                        expect(isAllTasksDoneCalled).to(beTrue())
+                        expect(allTasksDoneError?.localizedDescription).to(equal("Task isn't completed in expected time interval"))
                     }
                 }
             }
@@ -215,20 +217,18 @@ class ParallelTaskRunnerSpec: QuickSpec {
                     
                     it("should run tasks") {
                         expect(isTask0Called).to(beTrue())
-                        expect(task1Called).to(beTrue())
+                        expect(isTask1Called).to(beTrue())
                     }
                     
                     it("should finish all tasks") {
-                        expect(isTask0Finished).to(beTrue())
-                        expect(isTask1Finished).to(beTrue())
+                        expect(isTask0Completed).to(beTrue())
+                        expect(isTask1Completed).to(beTrue())
                     }
                     
                     it("should call tasks' done callback after all tasks finished") {
-                        expect(isTask0FinishedValueWhenDoneCalled).to(beTrue())
-                        expect(isTask1FinishedValueWhenDoneCalled).to(beTrue())
-                        // TODO: Can't find why this expectation is not working
-                        //expect(task2FinishedValueWhenDoneCalled).to(beTrue())
-                        expect(allTasksDoneCalled).to(beTrue())
+                        expect(isTask0CompletedValueWhenDoneCalled).to(beTrue())
+                        expect(isTask1CompletedValueWhenDoneCalled).to(beTrue())
+                        expect(isAllTasksDoneCalled).to(beTrue())
                         expect(allTasksDoneError).to(beNil())
                     }
                 }
@@ -243,14 +243,14 @@ class ParallelTaskRunnerSpec: QuickSpec {
                     
                     it("should run all tasks") {
                         expect(isTask0Called).to(beTrue())
-                        expect(taskWithErrorCalled).to(beTrue())
-                        expect(task1Called).to(beTrue())
+                        expect(isTaskWithErrorCalled).to(beTrue())
+                        expect(isTask1Called).to(beTrue())
                     }
                     
                     it("should call tasks' done callback with error") {
-                        expect(allTasksDoneCalled).to(beTrue())
+                        expect(isAllTasksDoneCalled).to(beTrue())
                         expect(allTasksDoneError).toNot(beNil())
-                        expect(allTasksDoneError?.localizedDescription).to(equal(taskWithErrorError.localizedDescription))
+                        expect(allTasksDoneError?.localizedDescription).to(equal(taskError.localizedDescription))
                     }
                 }
             }

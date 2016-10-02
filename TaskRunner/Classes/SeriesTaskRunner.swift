@@ -25,8 +25,88 @@
 
 import Foundation
 
-import Foundation
-
 class SeriesTaskRunner {
     
+    private var durationToComplete = DEFAULT_DURATION_TO_COMPLETE
+    private var tasks: [Task]?
+    private var allTasksDone: Done?
+    private var isAllTasksDoneCalled = false
+    private var taskIndex = 0
+    
+    func set(durationToComplete: Double) {
+       self.durationToComplete = durationToComplete
+    }
+    
+    func set(tasks: [Task]?) {
+        self.tasks = tasks
+    }
+    
+    func set(allTasksDone: Done?) {
+        self.allTasksDone = allTasksDone
+    }
+    
+    func run() {
+        startTasksTimer()
+        
+        if isTasksListEmpty() {
+            callAllTasksDone(error: nil)
+        }
+        else {
+            runTask()
+        }
+    }
+    
+    private func startTasksTimer() {
+        let deadline = DispatchTime.now() + durationToComplete
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) {
+            [weak self] _ in
+            guard let weakSelf = self else { return }
+            weakSelf.callAllTasksDone(error: TIMEOUT_ERROR)
+        }
+    }
+    
+    private func isTasksListEmpty() -> Bool {
+        guard let theTasks = tasks else { return true }
+        return theTasks.isEmpty
+    }
+    
+    private func callAllTasksDone(error: Error?) {
+        if isAllTasksDoneCalled == false {
+            isAllTasksDoneCalled = true
+            allTasksDone?(error)
+        }
+    }
+    
+    lazy private var whenTaskDone: Done = {
+        [weak self] error in
+        guard let weakSelf = self else { return }
+        
+        if error != nil {
+            weakSelf.callAllTasksDone(error: error)
+            return
+        }
+        
+        weakSelf.incrementTaskIndex()
+        
+        if weakSelf.areAllTasksFinished() {
+            weakSelf.callAllTasksDone(error: nil)
+        }
+        else {
+            weakSelf.runTask()
+        }
+    }
+    
+    private func runTask() {
+        guard let theTasks = tasks else { return }
+        theTasks[taskIndex](whenTaskDone)
+    }
+    
+    private func incrementTaskIndex() {
+        taskIndex += 1
+    }
+    
+    private func areAllTasksFinished() -> Bool {
+        guard let theTasks = tasks else { return true }
+        return taskIndex >= theTasks.count
+    }
 }

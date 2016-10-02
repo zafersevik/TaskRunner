@@ -25,22 +25,60 @@
 
 import Foundation
 
-public typealias Task = (@escaping Done) -> Void
-public typealias Done = (Error?) -> Void
-public typealias Callback = () -> Void
-
 class ParallelTaskRunner {
     
-    private let timeoutError: Error = NSError(domain: "TaskRunner",
-                                              code: 1,
-                                              userInfo: [NSLocalizedDescriptionKey: "Task timed out"])
     private var tasks: [Task]?
     private var allTasksDone: Done?
-    private var durationToComplete = 10.0
+    private var durationToComplete = DEFAULT_DURATION_TO_COMPLETE
     private var isAllTasksDoneCalled = false
     private var numberOfTasksRan = 0
     
-    lazy private var done: Done = {
+    func set(durationToComplete: Double) {
+        self.durationToComplete = durationToComplete
+    }
+    
+    func set(allTasksDone: Done?) {
+        self.allTasksDone = allTasksDone
+    }
+    
+    func set(tasks: [Task]?) {
+        self.tasks = tasks
+    }
+    
+    func run() {
+        startTasksTimer()
+        
+        if isTasksListEmpty() {
+            callAllTasksDone(error: nil)
+        }
+        else {
+            startAllTasks()
+        }
+    }
+    
+    private func startTasksTimer() {
+        let deadline = DispatchTime.now() + durationToComplete
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) {
+            [weak self] _ in
+            guard let weakSelf = self else { return }
+            weakSelf.callAllTasksDone(error: TIMEOUT_ERROR)
+        }
+    }
+    
+    private func isTasksListEmpty() -> Bool {
+        guard let theTasks = tasks else { return true }
+        return theTasks.isEmpty
+    }
+    
+    private func startAllTasks() {
+        guard let theTasks = tasks else { return }
+        
+        for task in theTasks {
+            task(whenTaskDone)
+        }
+    }
+    
+    lazy private var whenTaskDone: Done = {
         [weak self] error in
         guard let weakSelf = self else { return }
         
@@ -68,55 +106,7 @@ class ParallelTaskRunner {
     }
     
     private func areAllTasksFinished()  -> Bool {
-        return numberOfTasksRan == tasks?.count
-    }
-    
-    func set(durationToComplete: Double) {
-        self.durationToComplete = durationToComplete
-    }
-    
-    func set(allTasksDone: Done?) {
-        self.allTasksDone = allTasksDone
-    }
-    
-    func set(tasks: [Task]?) {
-        self.tasks = tasks
-    }
-    
-    func run() {
-        startTasksTimer()
-        
-        if doesAnyTaskExist() {
-            startAllTasks()
-        }
-        else {
-            callAllTasksDone(error: nil)
-        }
-    }
-    
-    private func startTasksTimer() {
-        let deadline = DispatchTime.now() + durationToComplete
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) {
-            [weak self] _ in
-            guard let weakSelf = self else { return }
-            weakSelf.callAllTasksDone(error: weakSelf.timeoutError)
-        }
-    }
-    
-    private func doesAnyTaskExist() -> Bool {
-        guard let theTasks = tasks else { return false }
-        
-        if theTasks.count == 0 {
-            return false
-        }
-        return true
-    }
-    
-    private func startAllTasks() {
-        guard let theTasks = tasks else { return }
-        
-        for task in theTasks {
-            task(done)
-        }
+        guard let theTasks = tasks else { return true }
+        return numberOfTasksRan >= theTasks.count
     }
 }
