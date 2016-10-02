@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TaskRunner'
-  s.version          = '0.0.6'
+  s.version          = '0.0.2'
   s.summary          = 'A concurrent/series task runner for swift projects'
 
 # This description is used to generate tags and improve search results.
