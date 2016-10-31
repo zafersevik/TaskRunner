@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FABE876FB3D5F93C0A614CC163B4B9B0"
+               BuildableName = "Pods_TaskRunner_Example.framework"
+               BlueprintName = "Pods-TaskRunner_Example"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
                BuildableName = "TaskRunner_Example.app"
                BlueprintName = "TaskRunner_Example"
