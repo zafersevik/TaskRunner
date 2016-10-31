@@ -2,6 +2,7 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
+osx_image: xcode8
 language: objective-c
 xcode_sdk: iphonesimulator10.0
 xcode_workspace: Example/TaskRunner.xcworkspace
@@ -9,8 +10,8 @@ xcode_scheme: TaskRunner-Example
 cache: cocoapods
 podfile: Example/Podfile
 before_install:
-- gem install cocoapods -v '1.1.0.rc.2' # Since Travis is not always on latest version
-- pod install --project-directory=Example
+  - gem install cocoapods
+  - pod install --project-directory=Example
+install: echo "<3"
 script:
-- set -o pipefail && xcodebuild test -workspace Example/TaskRunner.xcworkspace -scheme TaskRunner-Example -sdk iphonesimulator10.0 -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' ONLY_ACTIVE_ARCH=NO | xcpretty
-- pod lib lint
+- xcodebuild clean build test -project Example/TaskRunner.xcworkspace -scheme TaskRunner-Example
