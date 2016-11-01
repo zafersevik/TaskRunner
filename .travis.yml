@@ -9,15 +9,12 @@ xcode_workspace: Example/TaskRunner.xcworkspace
 xcode_scheme: TaskRunner-Example
 cache: cocoapods
 podfile: Example/Podfile
-branches:
-  only:
-    - master
 before_install:
   - gem install cocoapods:1.1.0
   - pod repo update
   - pod install --project-directory=Example
   - gem install xcpretty -N
-install: echo "<3"
 script:
 - set -o pipefail
 - xcodebuild test -workspace Example/TaskRunner.xcworkspace -scheme TaskRunner-Example -sdk iphonesimulator10.0 ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- pod lib lint
