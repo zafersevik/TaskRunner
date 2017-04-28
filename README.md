@@ -7,9 +7,11 @@
 
 TaskRunner is a Swift utility module which provides functions to run closures easily in series and parallel.
 
-## Example
+## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Examples
 
 ### Creating closure list
 ```Swift
