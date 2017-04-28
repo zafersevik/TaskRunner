@@ -10,11 +10,8 @@ xcode_scheme: TaskRunner-Example
 cache: cocoapods
 podfile: Example/Podfile
 before_install:
-  - gem install cocoapods:1.1.0
-  - pod repo update
-  - pod install --project-directory=Example
-  - gem install xcpretty -N
+- gem install cocoapods # Since Travis is not always on latest version
+- pod install --project-directory=Example
 script:
-- set -o pipefail
-- xcodebuild test -workspace Example/TaskRunner.xcworkspace -scheme TaskRunner-Example -sdk iphonesimulator10.0 ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- set -o pipefail && xcodebuild test -workspace Example/TaskRunner.xcworkspace -scheme TaskRunner-Example -sdk iphonesimulator9.3 -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' ONLY_ACTIVE_ARCH=NO | xcpretty
 - pod lib lint

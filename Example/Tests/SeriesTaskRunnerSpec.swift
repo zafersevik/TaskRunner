@@ -31,7 +31,7 @@ import Nimble
 class SeriesTaskRunnerSpec: QuickSpec {
     override func spec() {
         
-        describe("SeriesTaskRunnerSpec") {
+        describe("Series Task Runner Spec") {
             
             var runner: SeriesTaskRunner!
             let runnerDeadlineForTest = 1.0

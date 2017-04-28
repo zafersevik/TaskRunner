@@ -21,7 +21,7 @@ let closure0: Task = {
             done(error)
             return
         }
-        // done(nil)
+        done(nil)
 }
 
 let closure1: Task = {
@@ -31,7 +31,7 @@ let closure1: Task = {
             done(error)
             return
         }
-        // done(nil)
+        done(nil)
 }
 
 let closure2: Task = {
@@ -41,7 +41,7 @@ let closure2: Task = {
             done(error)
             return
         }
-        // done(nil)
+        done(nil)
 }
 
 let tasks = [closure0, closure1, closure2]
@@ -84,7 +84,7 @@ pod "TaskRunner"
 
 ## Author
 
-Zafer Sevik, zafersevik@gmail.com
+Zafer Sevik, zafersevik@zafersevik.com
 
 ## License
 
