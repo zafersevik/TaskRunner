@@ -31,7 +31,7 @@ import Nimble
 class ParallelTaskRunnerSpec: QuickSpec {
     override func spec() {
         
-        describe("ParallelTaskRunnerSpec") {
+        describe("Parallel Task Runner Spec") {
             
             var runner: ParallelTaskRunner!
             let runnerDeadlineForTest = 1.0
