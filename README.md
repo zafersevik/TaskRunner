@@ -1,5 +1,5 @@
 # TaskRunner
-[![CI Status](http://img.shields.io/travis/Zafer Sevik/TaskRunner.svg?branch=master&style=flat)](https://travis-ci.org/Zafer Sevik/TaskRunner)
+[![CI Status](http://img.shields.io/travis/zafersevik/TaskRunner.svg?branch=master&style=flat)](https://travis-ci.org/zafersevik/TaskRunner)
 [![Version](https://img.shields.io/cocoapods/v/TaskRunner.svg?style=flat)](http://cocoapods.org/pods/TaskRunner)
 [![Language](https://img.shields.io/badge/swift-3.0-brightgreen.svg)](http://cocoapods.org/pods/TaskRunner)
 [![Platform](https://img.shields.io/cocoapods/p/TaskRunner.svg?style=flat)](http://cocoapods.org/pods/TaskRunner)
