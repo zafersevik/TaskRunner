@@ -49,7 +49,7 @@ class ParallelTaskRunner {
         startTasksTimer()
         
         if isTasksListEmpty() {
-            callAllTasksDone(error: nil)
+            callAllTasksDone()
         }
         else {
             startAllTasks()
@@ -58,43 +58,41 @@ class ParallelTaskRunner {
     
     private func startTasksTimer() {
         let deadline = DispatchTime.now() + durationToComplete
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) {
-            [weak self] _ in
-            guard let weakSelf = self else { return }
-            weakSelf.callAllTasksDone(error: TIMEOUT_ERROR)
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.callAllTasksDone(error: TIMEOUT_ERROR)
         }
     }
     
     private func isTasksListEmpty() -> Bool {
-        guard let theTasks = tasks else { return true }
-        return theTasks.isEmpty
+        guard let tasks = tasks else { return true }
+        return tasks.isEmpty
     }
     
     private func startAllTasks() {
-        guard let theTasks = tasks else { return }
+        guard let tasks = tasks else { return }
         
-        for task in theTasks {
+        for task in tasks {
             task(whenTaskDone)
         }
     }
     
-    lazy private var whenTaskDone: Done = {
-        [weak self] error in
-        guard let weakSelf = self else { return }
+    lazy private var whenTaskDone: Done = { [weak self] error in
+        guard let strongSelf = self else { return }
         
         if error != nil {
-            weakSelf.callAllTasksDone(error: error)
+            strongSelf.callAllTasksDone(error: error)
             return
         }
         
-        weakSelf.incrementNumberOfTasksRan()
+        strongSelf.incrementNumberOfTasksRan()
         
-        if weakSelf.areAllTasksFinished() {
-            weakSelf.callAllTasksDone(error: nil)
+        if strongSelf.areAllTasksFinished() {
+            strongSelf.callAllTasksDone()
         }
     }
     
-    private func callAllTasksDone(error: Error?) {
+    private func callAllTasksDone(error: Error? = nil) {
         if isAllTasksDoneCalled == false {
             isAllTasksDoneCalled = true
             allTasksDone?(error)
@@ -106,7 +104,7 @@ class ParallelTaskRunner {
     }
     
     private func areAllTasksFinished()  -> Bool {
-        guard let theTasks = tasks else { return true }
-        return numberOfTasksRan >= theTasks.count
+        guard let tasks = tasks else { return true }
+        return numberOfTasksRan >= tasks.count
     }
 }
