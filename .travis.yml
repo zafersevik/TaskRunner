@@ -10,7 +10,7 @@ xcode_scheme: TaskRunner-Example
 cache: cocoapods
 podfile: Example/Podfile
 before_install:
-- sudo gem install cocoapods 1.4.0
+#- sudo gem install cocoapods 1.4.0
 - pod install --project-directory=Example
 script:
 - set -o pipefail
