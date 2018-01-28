@@ -1,11 +1,11 @@
 PODS:
   - Nimble (7.0.3)
   - Quick (1.2.0)
-  - TaskRunner (0.0.3)
+  - TaskRunner (1.0.0)
 
 DEPENDENCIES:
-  - Nimble
-  - Quick
+  - Nimble (~> 7.0.3)
+  - Quick (~> 1.2.0)
   - TaskRunner (from `../`)
 
 EXTERNAL SOURCES:
@@ -15,8 +15,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  TaskRunner: ec563c42e59361ca973533a592e3f46f04472139
+  TaskRunner: 085eaeae36e4cc7f2ef589a9614d5c1a303ced31
 
-PODFILE CHECKSUM: 8f78cb4f54f16512d853019439711ca9b6b37d45
+PODFILE CHECKSUM: 5613d14bade1aab1fbcfeb68f300a01707f5e5c0
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TaskRunner'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'A concurrent/series task runner for swift projects'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/zafersevik/TaskRunner.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/zafersevik'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '9.3'
   s.requires_arc = true
 
   s.source_files = 'TaskRunner/Classes/**/*'
