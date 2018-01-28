@@ -12,12 +12,5 @@ podfile: Example/Podfile
 before_install:
 - pod install --project-directory=Example
 script:
-- set -o pipefail
-- xcodebuild test -workspace Example/TaskRunner.xcworkspace -scheme TaskRunner-Example -sdk iphonesimulator11.2 -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.2' ONLY_ACTIVE_ARCH=NO | xcpretty
+- set -o pipefail && xcodebuild test -workspace Example/TaskRunner.xcworkspace -scheme TaskRunner-Example -sdk iphonesimulator11.2 -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.2' ONLY_ACTIVE_ARCH=NO | xcpretty
 - pod lib lint
-
-
-#- sudo gem install cocoapods 1.4.0
-#- xcodebuild build-for-testing test-without-building -scheme TaskRunner-Example -configuration Release ENABLE_TESTABILITY=YES | xcpretty -c
-#- xcodebuild build-for-testing test-without-building -scheme TaskRunner-Example -configuration Release -sdk iphonesimulator -destination "name=iPhone 7" ENABLE_TESTABILITY=YES | xcpretty -c
-#- xcodebuild clean test -workspace Example/TaskRunner.xcworkspace -scheme TaskRunner-Example -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO -quiet
