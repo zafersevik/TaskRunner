@@ -25,21 +25,27 @@
 
 import Foundation
 
-public typealias Task = (@escaping Done) -> Void
-public typealias Done = (Error?) -> Void
+public typealias Task = (@escaping Done) -> ()
+public typealias Done = (Error?) -> ()
 
 let DEFAULT_DURATION_TO_COMPLETE = 10.0
 let TIMEOUT_ERROR: Error = NSError(domain: "TaskRunner",
                                    code: 1,
                                    userInfo: [NSLocalizedDescriptionKey: "Task isn't completed in expected time interval"])
 
-public class TaskRunner {
-        
-    public class func runInParallel(tasks: [Task]?, done: Done?) {
-        runInParallel(durationToComplete: DEFAULT_DURATION_TO_COMPLETE, tasks: tasks, done: done)
+open class TaskRunner {
+    
+    private var durationToComplete: Double!
+    
+    public init(durationToComplete: Double) {
+        self.durationToComplete = durationToComplete
     }
     
-    public class func runInParallel(durationToComplete: Double, tasks: [Task]?, done: Done?) {
+    open class func runInParallel(tasks: [Task]?, done: Done?) {
+        TaskRunner(durationToComplete: DEFAULT_DURATION_TO_COMPLETE).runInParallel(tasks: tasks, done: done)
+    }
+    
+    open func runInParallel(tasks: [Task]?, done: Done?) {
         let parallelTaskRunner = ParallelTaskRunner()
         parallelTaskRunner.set(durationToComplete: durationToComplete)
         parallelTaskRunner.set(tasks: tasks)
@@ -47,13 +53,13 @@ public class TaskRunner {
         parallelTaskRunner.run()
     }
     
-    public class func runInSeries(tasks: [Task]?, done: Done?) {
-        runInSeries(tasks: tasks, done: done)
+    open class func runInSeries(tasks: [Task]?, done: Done?) {
+        TaskRunner(durationToComplete: DEFAULT_DURATION_TO_COMPLETE).runInSeries(tasks: tasks, done: done)
     }
     
-    public class func runInSeries(durationToComplete: Double, tasks: [Task]?, done: Done?) {
+    open func runInSeries(tasks: [Task]?, done: Done?) {
         let seriesTaskRunner = SeriesTaskRunner()
-        seriesTaskRunner.set(durationToComplete:durationToComplete)
+        seriesTaskRunner.set(durationToComplete: durationToComplete)
         seriesTaskRunner.set(tasks: tasks)
         seriesTaskRunner.set(allTasksDone: done)
         seriesTaskRunner.run()

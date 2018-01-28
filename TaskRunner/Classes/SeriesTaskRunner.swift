@@ -25,7 +25,7 @@
 
 import Foundation
 
-class SeriesTaskRunner {
+open class SeriesTaskRunner {
     
     private var durationToComplete = DEFAULT_DURATION_TO_COMPLETE
     private var tasks: [Task]?
@@ -33,19 +33,19 @@ class SeriesTaskRunner {
     private var isAllTasksDoneCalled = false
     private var taskIndex = 0
     
-    func set(durationToComplete: Double) {
+    open func set(durationToComplete: Double) {
        self.durationToComplete = durationToComplete
     }
     
-    func set(tasks: [Task]?) {
+    open func set(tasks: [Task]?) {
         self.tasks = tasks
     }
     
-    func set(allTasksDone: Done?) {
+    open func set(allTasksDone: Done?) {
         self.allTasksDone = allTasksDone
     }
     
-    func run() {
+    open func run() {
         startTasksTimer()
         
         if isTasksListEmpty() {

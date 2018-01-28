@@ -25,7 +25,7 @@
 
 import Foundation
 
-class ParallelTaskRunner {
+open class ParallelTaskRunner {
     
     private var tasks: [Task]?
     private var allTasksDone: Done?
@@ -33,19 +33,19 @@ class ParallelTaskRunner {
     private var isAllTasksDoneCalled = false
     private var numberOfTasksRan = 0
     
-    func set(durationToComplete: Double) {
+    open func set(durationToComplete: Double) {
         self.durationToComplete = durationToComplete
     }
     
-    func set(allTasksDone: Done?) {
+    open func set(allTasksDone: Done?) {
         self.allTasksDone = allTasksDone
     }
     
-    func set(tasks: [Task]?) {
+    open func set(tasks: [Task]?) {
         self.tasks = tasks
     }
     
-    func run() {
+    open func run() {
         startTasksTimer()
         
         if isTasksListEmpty() {
