@@ -10,7 +10,6 @@ xcode_scheme: TaskRunner-Example
 cache: cocoapods
 podfile: Example/Podfile
 before_install:
-- sudo security delete-certificate -Z 0950B6CD3D2F37EA246A1AAA20DFAADBD6FE1F75 /Library/Keychains/System.keychain
 - sudo gem install cocoapods 1.4.0
 - pod install --project-directory=Example
 script:
