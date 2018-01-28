@@ -6,14 +6,14 @@ To install or update CocoaPods see this [guide](http://docs.cocoapods.org/guides
 
 ##### Enhancements
 
-* 
+* None
 
 ##### Bug Fixes
 
-* 
+* None
 
 
-## 0.0.4 (2018-01-21)
+## 1.0.0 (2018-01-21)
 
 ##### Enhancements
 
@@ -23,4 +23,4 @@ To install or update CocoaPods see this [guide](http://docs.cocoapods.org/guides
 
 ##### Bug Fixes
 
-* 
+* None

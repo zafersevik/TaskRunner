@@ -1236,7 +1236,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TaskRunner/TaskRunner-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TaskRunner/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/TaskRunner/TaskRunner.modulemap";
 				PRODUCT_NAME = TaskRunner;
@@ -1388,7 +1388,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TaskRunner/TaskRunner-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TaskRunner/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/TaskRunner/TaskRunner.modulemap";
 				PRODUCT_NAME = TaskRunner;
