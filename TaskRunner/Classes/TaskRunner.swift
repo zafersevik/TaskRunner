@@ -36,9 +36,15 @@ let TIMEOUT_ERROR: Error = NSError(domain: "TaskRunner",
 open class TaskRunner {
     
     private var durationToComplete: Double!
+    var runnerReferansHolder: [InnerTaskRunnerProtocol]!
     
     public init(durationToComplete: Double) {
         self.durationToComplete = durationToComplete
+        runnerReferansHolder = [InnerTaskRunnerProtocol]()
+    }
+    
+    public convenience init() {
+        self.init(durationToComplete: DEFAULT_DURATION_TO_COMPLETE)
     }
     
     open class func runInParallel(tasks: [Task]?, done: Done?) {
@@ -47,10 +53,24 @@ open class TaskRunner {
     
     open func runInParallel(tasks: [Task]?, done: Done?) {
         let parallelTaskRunner = ParallelTaskRunner()
+        runnerReferansHolder.append(parallelTaskRunner)
+        
         parallelTaskRunner.set(durationToComplete: durationToComplete)
         parallelTaskRunner.set(tasks: tasks)
-        parallelTaskRunner.set(allTasksDone: done)
+        parallelTaskRunner.set(allTasksDone: { [unowned self] error in
+            done?(error)
+            self.removeFromReferansHolder(itemReferans: parallelTaskRunner)
+        })
         parallelTaskRunner.run()
+    }
+    
+    private func removeFromReferansHolder(itemReferans: InnerTaskRunnerProtocol) {
+        let indexInReferansHolder = runnerReferansHolder.index(where: { (item) -> Bool in
+            return itemReferans === item
+        })
+        
+        guard let indexToRemove = indexInReferansHolder else { return }
+        runnerReferansHolder.remove(at: indexToRemove)
     }
     
     open class func runInSeries(tasks: [Task]?, done: Done?) {
@@ -59,9 +79,14 @@ open class TaskRunner {
     
     open func runInSeries(tasks: [Task]?, done: Done?) {
         let seriesTaskRunner = SeriesTaskRunner()
+        runnerReferansHolder.append(seriesTaskRunner)
+        
         seriesTaskRunner.set(durationToComplete: durationToComplete)
         seriesTaskRunner.set(tasks: tasks)
-        seriesTaskRunner.set(allTasksDone: done)
+        seriesTaskRunner.set(allTasksDone: { [unowned self] error in
+            done?(error)
+            self.removeFromReferansHolder(itemReferans: seriesTaskRunner)
+        })
         seriesTaskRunner.run()
     }
 }

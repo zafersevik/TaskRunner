@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E9D108D2132C3C60080256E /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9D108C2132C3C60080256E /* TestHelper.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		07F7017C48496FC1B1D35EAD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		130F98E065DD3908E1C3542E /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		1E4093816BFB18900D3DEFD5 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		1E9D108C2132C3C60080256E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		36126248AF08C0FF005B23B3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		59168FDD5382FE882A5AAAC8 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F0B6FDF794E88676093FB0F /* TaskRunner.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TaskRunner.podspec; path = ../TaskRunner.podspec; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				DADADEA31DA0398600F1AF3B /* ParallelTaskRunnerSpec.swift */,
 				DADADE9D1DA0393F00F1AF3B /* Info.plist */,
 				DA89AF491DA10673000A8E6C /* SeriesTaskRunnerSpec.swift */,
+				1E9D108C2132C3C60080256E /* TestHelper.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			files = (
 				DA89AF4A1DA10673000A8E6C /* SeriesTaskRunnerSpec.swift in Sources */,
 				DADADEA41DA0398600F1AF3B /* ParallelTaskRunnerSpec.swift in Sources */,
+				1E9D108D2132C3C60080256E /* TestHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

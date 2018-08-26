@@ -25,13 +25,15 @@
 
 import Foundation
 
-open class SeriesTaskRunner {
+open class SeriesTaskRunner: InnerTaskRunnerProtocol {
     
     private var durationToComplete = DEFAULT_DURATION_TO_COMPLETE
     private var tasks: [Task]?
     private var allTasksDone: Done?
     private var isAllTasksDoneCalled = false
     private var taskIndex = 0
+    
+    public init() {}
     
     open func set(durationToComplete: Double) {
        self.durationToComplete = durationToComplete
@@ -106,5 +108,9 @@ open class SeriesTaskRunner {
     private func areAllTasksFinished() -> Bool {
         guard let tasks = tasks else { return true }
         return taskIndex >= tasks.count
+    }
+    
+    public static func ==(lhs: SeriesTaskRunner, rhs: SeriesTaskRunner) -> Bool {
+        return lhs === rhs
     }
 }

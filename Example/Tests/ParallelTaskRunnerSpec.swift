@@ -33,6 +33,7 @@ class ParallelTaskRunnerSpec: QuickSpec {
         
         describe("Parallel Task Runner Spec") {
             
+            let testHelper = TestHelper()
             var runner: ParallelTaskRunner!
             let runnerDeadlineForTest = 1.0
             let testTimeout = runnerDeadlineForTest + 0.5
@@ -50,32 +51,19 @@ class ParallelTaskRunnerSpec: QuickSpec {
                                            userInfo: [NSLocalizedDescriptionKey: "Task Error"])
             var isTaskExceedingDeadlineCalled = false
             
-            var isTask0CompletedValueWhenDoneCalled = false
-            var isTask1CompletedValueWhenDoneCalled = false
-            var isTask2CompletedValueWhenDoneCalled = false
             var allTasksDoneError:  Error?
             var isAllTasksDoneCalled = false
             
             let allTasksDone: Done = {
                 error in
-                isTask0CompletedValueWhenDoneCalled = isTask0Completed
-                isTask1CompletedValueWhenDoneCalled = isTask1Completed
-                isTask2CompletedValueWhenDoneCalled = isTask2Completed
                 isAllTasksDoneCalled = true
                 allTasksDoneError = error
-            }
-            
-            func runConcurrent(delay: Double, callback: @escaping (() -> Void)) {
-                let deadline = DispatchTime.now() + delay
-                DispatchQueue
-                    .global(qos: DispatchQoS.QoSClass.background)
-                    .asyncAfter(deadline: deadline, execute: callback)
             }
             
             let task0: Task = {
                 done in
                 isTask0Called = true
-                runConcurrent(delay: 0.1) {
+                testHelper.runConcurrent(delay: 0.1) {
                     isTask0Completed = true
                     done(nil)
                 }
@@ -84,7 +72,7 @@ class ParallelTaskRunnerSpec: QuickSpec {
             let task1: Task = {
                 done in
                 isTask1Called = true
-                runConcurrent(delay: 0.2) {
+                testHelper.runConcurrent(delay: 0.2) {
                     isTask1Completed = true
                     done(nil)
                 }
@@ -93,24 +81,22 @@ class ParallelTaskRunnerSpec: QuickSpec {
             let task2: Task = {
                 done in
                 isTask2Called = true
-                runConcurrent(delay: 0.3) {
+                testHelper.runConcurrent(delay: 0.3) {
                     isTask2Completed = true
                     done(nil)
                 }
             }
             
-            let taskWithError: Task = {
-                done in
+            let taskWithError: Task = { done in
                 isTaskWithErrorCalled = true
-                runConcurrent(delay: 0.1) {
+                testHelper.runConcurrent(delay: 0.1) {
                     done(taskError)
                 }
             }
             
-            let taskExceedingDeadline: Task = {
-                done in
+            let taskExceedingDeadline: Task = { done in
                 isTaskExceedingDeadlineCalled = true
-                runConcurrent(delay: 3.0) {
+                testHelper.runConcurrent(delay: 3.0) {
                     done(nil)
                 }
             }
@@ -225,9 +211,9 @@ class ParallelTaskRunnerSpec: QuickSpec {
                         expect(isTask1Completed).to(beTrue())
                     }
                     
-                    it("should call tasks' done callback after all tasks finished") {
-                        expect(isTask0CompletedValueWhenDoneCalled).to(beTrue())
-                        expect(isTask1CompletedValueWhenDoneCalled).to(beTrue())
+                    it("should call tasks' done callback after all tasks completed") {
+                        expect(isTask0Completed).to(beTrue())
+                        expect(isTask1Completed).to(beTrue())
                         expect(isAllTasksDoneCalled).to(beTrue())
                         expect(allTasksDoneError).to(beNil())
                     }

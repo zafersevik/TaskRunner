@@ -33,6 +33,7 @@ class SeriesTaskRunnerSpec: QuickSpec {
         
         describe("Series Task Runner Spec") {
             
+            let testHelper = TestHelper()
             var runner: SeriesTaskRunner!
             let runnerDeadlineForTest = 1.0
             let testTimeout = runnerDeadlineForTest + 0.5
@@ -46,50 +47,38 @@ class SeriesTaskRunnerSpec: QuickSpec {
             
             var errorOfAllTasksDoneCallback: Error?
             
-            func runConcurrent(delay: Double, callback: @escaping (() -> Void)) {
-                let deadline = DispatchTime.now() + delay
-                DispatchQueue
-                    .global(qos: DispatchQoS.QoSClass.background)
-                    .asyncAfter(deadline: deadline, execute: callback)
-            }
-            
             func makeTestsWaitUntil(timeout: TimeInterval) {
                 let timeoutDate = Date(timeIntervalSinceNow: timeout)
                 RunLoop.main.run(until: timeoutDate)
             }
             
-            let times3: Task = {
-                done in
-                runConcurrent(delay: 0.2) {
+            let times3: Task = { done in
+                testHelper.runConcurrent(delay: 0.2) {
                     result = result * 3
                     done(nil)
                 }
             }
             
-            let minus1: Task = {
-                done in
-                runConcurrent(delay: 0.2) {
+            let minus1: Task = { done in
+                testHelper.runConcurrent(delay: 0.2) {
                     result = result - 1
                     done(nil)
                 }
             }
             
-            let erroneousOperation: Task = {
-                done in
-                runConcurrent(delay: 0.1) {
+            let erroneousOperation: Task = { done in
+                testHelper.runConcurrent(delay: 0.1) {
                     done(taskError)
                 }
             }
             
-            let deadlineExceedingOperation: Task = {
-                done in
-                runConcurrent(delay: runnerDeadlineForTest + 0.1) {
+            let deadlineExceedingOperation: Task = { done in
+                testHelper.runConcurrent(delay: runnerDeadlineForTest + 0.1) {
                     done(nil)
                 }
             }
             
-            let plus5AfterAllOperations: Done = {
-                error in
+            let plus5AfterAllOperations: Done = { error in
                 result = result + 5
                 errorOfAllTasksDoneCallback = error
             }

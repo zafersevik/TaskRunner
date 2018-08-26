@@ -25,13 +25,15 @@
 
 import Foundation
 
-open class ParallelTaskRunner {
+open class ParallelTaskRunner: InnerTaskRunnerProtocol {
     
     private var tasks: [Task]?
     private var allTasksDone: Done?
     private var durationToComplete = DEFAULT_DURATION_TO_COMPLETE
     private var isAllTasksDoneCalled = false
     private var numberOfTasksRan = 0
+    
+    public init() {}
     
     open func set(durationToComplete: Double) {
         self.durationToComplete = durationToComplete
@@ -106,5 +108,9 @@ open class ParallelTaskRunner {
     private func areAllTasksFinished()  -> Bool {
         guard let tasks = tasks else { return true }
         return numberOfTasksRan >= tasks.count
+    }
+    
+    public static func ==(lhs: ParallelTaskRunner, rhs: ParallelTaskRunner) -> Bool {
+        return lhs === rhs
     }
 }
