@@ -85,7 +85,7 @@ pod "TaskRunner"
 
 ## Author
 
-Zafer Sevik, zafersevik@zafersevik.com
+Zafer Sevik, zafer13 at gmail.com
 
 ## License
 
